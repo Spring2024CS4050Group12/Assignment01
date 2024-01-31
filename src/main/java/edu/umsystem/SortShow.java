@@ -228,6 +228,7 @@ public class SortShow extends JPanel {
     }
 
     //This method colours the lines and prints the lines
+    @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         //A loop to assign a colour to each line
