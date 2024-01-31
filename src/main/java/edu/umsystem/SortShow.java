@@ -59,16 +59,8 @@ public class SortShow extends JPanel {
         lines_lengths[j] = temp;
     }
 
-    //The selectionSort method
-    public void SelectionSort() {
-    }
-
-    //this method gets the smallest element in the array of lines_lengths
-    public int getIndexOfSmallest(int first, int last) {
-
-        //You need to complete this part.
-
-        return 1; //modify this line
+    public Boolean checkLessThan(int i, int j) {
+        return lines_lengths[i] < lines_lengths[j];
     }
 
     ///////////////////////////////////////////////////////////////////////////////////
