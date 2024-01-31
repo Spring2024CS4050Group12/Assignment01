@@ -68,11 +68,11 @@ public class SortGUI {
             this.lockOptions();
 
             // Panel listing the available sorting algorithm demos
-            JPanel algorithmChecklist = new JPanel(new GridLayout(this.demos.size() + 1, 1, 3, 3));
+            JPanel algorithmChecklist = new JPanel(new GridLayout(0, 1, 3, 3));
             algorithmChecklist.setBorder(new javax.swing.border.TitledBorder("Sorting Algorithms"));
 
             // Panel listing statistics for each demo upon completion
-            JPanel statisticsPanel = new JPanel(new GridLayout(2 * this.demos.size(), 1, 3, 3));
+            JPanel statisticsPanel = new JPanel(new GridLayout(0, 1, 3, 3));
 
             for (AlgorithmDemo demo : this.demos) {
                 algorithmChecklist.add(demo.getStartButton());
@@ -82,15 +82,12 @@ public class SortGUI {
 
             algorithmChecklist.add(reset);
 
-            //A Panel to hold the buttons_area_Panel and set the GridLayout
-            //This buttons_area_Panel will hold scrambleButton, radio_button_selection and the time_Panel
-            JPanel buttons_area_Panel = new JPanel(new GridLayout(5, 1, 5, 5));
-            //adding scramble_button to the buttons_area_Panel
-            buttons_area_Panel.add(scramble_button);
-            //adding radio_button_selection_Panel to the buttons_area_Panel
-            buttons_area_Panel.add(algorithmChecklist);
-            //adding time_Panel to the buttons_area_Panel
-            buttons_area_Panel.add(statisticsPanel);
+            JPanel buttons_area_Panel = new JPanel(new GridBagLayout());
+            buttons_area_Panel.add(scramble_button, makeConstraint(0, 0, 1.0, 0.5));
+            buttons_area_Panel.add(algorithmChecklist, makeConstraint(0, 1, 1.0, 0.75));
+            buttons_area_Panel.add(statisticsPanel, makeConstraint(0, 2, 1.0, 1.5));
+
+            buttons_area_Panel.setSize(new Dimension(50, 450));
 
             //placing the buttons_area_Panel to the east side of the window
             add(buttons_area_Panel, BorderLayout.EAST);
@@ -110,6 +107,18 @@ public class SortGUI {
                 this.unlockOptions();
                 sortArea.reset();
             });
+        }
+
+        public GridBagConstraints makeConstraint(int x, int y, double width, double height) {
+            GridBagConstraints constraints = new GridBagConstraints();
+            constraints.gridx = x;
+            constraints.gridy = y;
+            constraints.gridwidth = 1;
+            constraints.gridheight = 1;
+            constraints.weightx = width;
+            constraints.weighty = height;
+            constraints.fill = GridBagConstraints.BOTH;
+            return constraints;
         }
 
         // the program is currently performing a demo, lock the interface
