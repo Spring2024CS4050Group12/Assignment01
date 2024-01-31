@@ -12,10 +12,9 @@ public class AlgorithmDemo {
     private final JLabel timeValue;
     private Boolean usedStatus = false;
 
-    public AlgorithmDemo(SortingAlgorithm algorithm, ActionListener onStart) {
+    public AlgorithmDemo(SortingAlgorithm algorithm) {
         this.algorithm = algorithm;
         this.startButton = new JCheckBox(algorithm.getName());
-        this.startButton.addActionListener(onStart);
         this.timeLabel = new JLabel(String.format("%s Time", algorithm.getName()));
         this.timeLabel.setForeground(Color.BLUE);
         this.timeValue = new JLabel();
@@ -40,6 +39,10 @@ public class AlgorithmDemo {
 
     public void setEnabled(Boolean enabled) {
         startButton.setEnabled(enabled);
+    }
+
+    public void addStartButtonListener(ActionListener listener) {
+        this.startButton.addActionListener(listener);
     }
 
     public void sort() {

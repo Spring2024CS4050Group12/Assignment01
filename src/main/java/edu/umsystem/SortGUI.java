@@ -45,9 +45,6 @@ public class SortGUI {
 
         ArrayList<AlgorithmDemo> demos = new ArrayList<>();
 
-        AlgorithmDemo iterativeMergeSortDemo;
-        AlgorithmDemo bubbleSortDemo;
-
         //the default constructor for the class MyScreen
         public MyScreen() {
             // Panel where sorted lines_lengths will displayed
@@ -56,15 +53,16 @@ public class SortGUI {
             //setting the font of scramble button
             scramble_button.setFont(new Font("Arial", Font.BOLD, 15));
 
-            iterativeMergeSortDemo = new AlgorithmDemo(new IterativeMergeSort(sortArea), e -> {
-                this.runDemo(iterativeMergeSortDemo);
-            });
-            demos.add(iterativeMergeSortDemo);
+            SortingAlgorithm[] algorithms = {
+                new IterativeMergeSort(sortArea),
+                new BubbleSort(sortArea),
+            };
 
-            bubbleSortDemo = new AlgorithmDemo(new BubbleSort(sortArea), e -> {
-                this.runDemo(bubbleSortDemo);
-            });
-            demos.add(bubbleSortDemo);
+            for (SortingAlgorithm algorithm : algorithms) {
+                AlgorithmDemo demo = new AlgorithmDemo(algorithm);
+                demo.addStartButtonListener(e -> { this.runDemo(demo); });
+                demos.add(demo);
+            }
 
             this.lockOptions();
 
