@@ -1,8 +1,6 @@
 package edu.umsystem;
 
-import java.util.Calendar;
-
-public class IterativeMergeSort implements Algorithm {
+public class IterativeMergeSort implements SortingAlgorithm {
     SortShow arrayDisplay;
 
     //A temp Array that is used later for sorts

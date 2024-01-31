@@ -7,8 +7,6 @@ package edu.umsystem;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 //the class with button and main method
@@ -43,12 +41,12 @@ public class SortGUI {
     public class MyScreen extends JFrame {
         //making a scramble button with a text "Scramble Lines" on it
         JButton scramble_button = new JButton("Scramble Lines");
-        JRadioButton reset = new JRadioButton("Reset");
+        JButton reset = new JButton("Reset");
 
         ArrayList<AlgorithmDemo> demos = new ArrayList<>();
 
-        IterativeMergeSort iterativeMergeSort;
         AlgorithmDemo iterativeMergeSortDemo;
+        AlgorithmDemo bubbleSortDemo;
 
         //the default constructor for the class MyScreen
         public MyScreen() {
@@ -57,31 +55,33 @@ public class SortGUI {
             scramble_button.setForeground(Color.BLUE);
             //setting the font of scramble button
             scramble_button.setFont(new Font("Arial", Font.BOLD, 15));
-            //A Panel to hold the radio_button_selection and set the GridLayout
-            JPanel radio_button_selection_Panel = new JPanel(new GridLayout(4, 1, 3, 3));
 
-            iterativeMergeSort = new IterativeMergeSort(sortArea);
-            iterativeMergeSortDemo = new AlgorithmDemo(iterativeMergeSort, e -> {
-                // TODO: extract this and temporarily disable everything in demos and restore to usedStatus afterward
-                iterativeMergeSortDemo.sort();
-                iterativeMergeSortDemo.setEnabled(false);
+            iterativeMergeSortDemo = new AlgorithmDemo(new IterativeMergeSort(sortArea), e -> {
+                this.runDemo(iterativeMergeSortDemo);
             });
-
             demos.add(iterativeMergeSortDemo);
 
-            //Adding the selection button to the radio_button_selection_Panel
-            radio_button_selection_Panel.add(iterativeMergeSortDemo.getStartButton());
-            //Adding the reset button to the radio_button_selection_Panel
-            radio_button_selection_Panel.add(reset);
-            //giving the radio_button_selection_Panel a border with a title
-            radio_button_selection_Panel.setBorder(new javax.swing.border.TitledBorder("Sort Algorithms"));
+            bubbleSortDemo = new AlgorithmDemo(new BubbleSort(sortArea), e -> {
+                this.runDemo(bubbleSortDemo);
+            });
+            demos.add(bubbleSortDemo);
 
-            //A Panel to hold the time_Panel and set the GridLayout
-            JPanel time_Panel = new JPanel(new GridLayout(6, 1, 3, 3));
-            //Adding the selection_time_label to the time_Panel
-            time_Panel.add(iterativeMergeSortDemo.getTimeLabel());
-            //Adding the selection_time_taken to the time_Panel
-            time_Panel.add(iterativeMergeSortDemo.getTimeValue());
+            this.lockOptions();
+
+            // Panel listing the available sorting algorithm demos
+            JPanel algorithmChecklist = new JPanel(new GridLayout(this.demos.size() + 1, 1, 3, 3));
+            algorithmChecklist.setBorder(new javax.swing.border.TitledBorder("Sorting Algorithms"));
+
+            // Panel listing statistics for each demo upon completion
+            JPanel statisticsPanel = new JPanel(new GridLayout(2 * this.demos.size(), 1, 3, 3));
+
+            for (AlgorithmDemo demo : this.demos) {
+                algorithmChecklist.add(demo.getStartButton());
+                statisticsPanel.add(demo.getTimeLabel());
+                statisticsPanel.add(demo.getTimeValue());
+            }
+
+            algorithmChecklist.add(reset);
 
             //A Panel to hold the buttons_area_Panel and set the GridLayout
             //This buttons_area_Panel will hold scrambleButton, radio_button_selection and the time_Panel
@@ -89,73 +89,59 @@ public class SortGUI {
             //adding scramble_button to the buttons_area_Panel
             buttons_area_Panel.add(scramble_button);
             //adding radio_button_selection_Panel to the buttons_area_Panel
-            buttons_area_Panel.add(radio_button_selection_Panel);
+            buttons_area_Panel.add(algorithmChecklist);
             //adding time_Panel to the buttons_area_Panel
-            buttons_area_Panel.add(time_Panel);
+            buttons_area_Panel.add(statisticsPanel);
 
             //placing the buttons_area_Panel to the east side of the window
             add(buttons_area_Panel, BorderLayout.EAST);
             //placing the sortArea object in the center of the window
             add(sortArea, BorderLayout.CENTER);
 
-            //The following code is for creating a listener for each GUI element
+            scramble_button.addActionListener(e -> {
+                sortArea.scramble_the_lines();
 
-            //Creating an action listener for scramble button
-            //This button will be used to scramble the lines in a random way
-            //this same scrambled lines will be used for all threes sort methods used in this program
-            scramble_button.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    // Scrambling the lines_lengths array
-                    sortArea.scramble_the_lines();
-                    //Since it has already been clicked, it will no longer be enabled
-                    scramble_button.setEnabled(false);
-                    //setting all booleans true except for reset
-                }
+                //this same scrambled lines will be used for all threes sort methods used in this program
+                scramble_button.setEnabled(false);
+
+                this.unlockOptions();
             });
 
-            //Creating an action listener for reset button
-            reset.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    //disabling reset since it was clicked
-                    reset.setEnabled(false);
-                    //reseting the lines_lengths to its scrambled lines
-                    sortArea.reset();
-
-                    //There are many different combinations of what could be clicked
-                    //The following code below covers all possibilities
-                    //FOr the following use the same comments as above
-//                    if (Selection_Done && Recersive_Merge_Done && Iterative_Merge_Done) {
-//                        scramble_button.setEnabled(true);
-//                        Recersive_Merge_Done = false;
-//                        Iterative_Merge_Done = false;
-//                        Selection_Done = false;
-//                        Set_Available_Chooses(false, false, false, false);
-//                        selection_time_taken.setText("");
-//                        rmerge_time_taken.setText("");
-//                        imerge_time_taken.setText("");
-//
-//                    } else if (Recersive_Merge_Done && Iterative_Merge_Done) {
-//                        Set_Available_Chooses(true, false, false, false);
-//
-//                    } else if (Selection_Done && Recersive_Merge_Done) {
-//
-//                        Set_Available_Chooses(false, false, true, false);
-//
-//                    } else if (Selection_Done && Iterative_Merge_Done) {
-//                        Set_Available_Chooses(false, true, false, false);
-//
-//                    } else if (Selection_Done) {
-//                        Set_Available_Chooses(false, true, true, false);
-//
-//                    } else if (Recersive_Merge_Done) {
-//                        Set_Available_Chooses(true, false, true, false);
-//
-//                    } else {
-//                        Set_Available_Chooses(true, true, false, false);
-//
-//                    }
-                }
+            reset.addActionListener(e -> {
+                this.unlockOptions();
+                sortArea.reset();
             });
+        }
+
+        // the program is currently performing a demo, lock the interface
+        public void lockOptions() {
+            for (AlgorithmDemo demo : this.demos) {
+                demo.setEnabled(false);
+            }
+
+            reset.setEnabled(false);
+        }
+
+        // the array is shuffled, unlock all unused demos or the reset button if all are used (otherwise disable it)
+        public void unlockOptions() {
+            Boolean allUsed = true;
+            for (AlgorithmDemo demo : this.demos) {
+                allUsed &= demo.getUsedStatus();
+                demo.setEnabled(!demo.getUsedStatus());
+            }
+
+            reset.setEnabled(allUsed);
+        }
+
+        public void runDemo(AlgorithmDemo demo) {
+            // disable interface while a demo is running
+            // Note: with the current implementation sort() is blocking and this doesn't seem to have any effect but
+            //  it's probably better not to rely on that fact
+            this.lockOptions();
+            demo.sort();
+
+            // always allow for a reset (re-shuffle) after sorting completes
+            this.reset.setEnabled(true);
         }
     }
 }

@@ -6,15 +6,15 @@ import java.awt.event.ActionListener;
 import java.util.Calendar;
 
 public class AlgorithmDemo {
-    Algorithm algorithm;
-    JRadioButton startButton;
-    JLabel timeLabel;
-    JLabel timeValue;
-    Boolean usedStatus = false;
+    private final SortingAlgorithm algorithm;
+    private final JCheckBox startButton;
+    private final JLabel timeLabel;
+    private final JLabel timeValue;
+    private Boolean usedStatus = false;
 
-    public AlgorithmDemo(Algorithm algorithm, ActionListener onStart) {
+    public AlgorithmDemo(SortingAlgorithm algorithm, ActionListener onStart) {
         this.algorithm = algorithm;
-        this.startButton = new JRadioButton(algorithm.getName());
+        this.startButton = new JCheckBox(algorithm.getName());
         this.startButton.addActionListener(onStart);
         this.timeLabel = new JLabel(String.format("%s Time", algorithm.getName()));
         this.timeLabel.setForeground(Color.BLUE);
@@ -22,7 +22,7 @@ public class AlgorithmDemo {
         this.timeValue.setForeground(Color.RED);
     }
 
-    public JRadioButton getStartButton() {
+    public JCheckBox getStartButton() {
         return startButton;
     }
 
@@ -48,6 +48,8 @@ public class AlgorithmDemo {
         long end = Calendar.getInstance().getTime().getTime();
 
         this.timeValue.setText(String.format("%f Seconds", (end - start) / 1000.f));
+
+        usedStatus = true;
     }
 
     public void reset() {

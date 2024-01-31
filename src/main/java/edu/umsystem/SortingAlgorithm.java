@@ -1,6 +1,6 @@
 package edu.umsystem;
 
-public interface Algorithm {
+public interface SortingAlgorithm {
     String getName();
     void sort();
 }
