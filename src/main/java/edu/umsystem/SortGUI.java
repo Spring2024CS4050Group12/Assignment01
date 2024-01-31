@@ -56,6 +56,7 @@ public class SortGUI {
             SortingAlgorithm[] algorithms = {
                 new IterativeMergeSort(sortArea),
                 new BubbleSort(sortArea),
+                new SelectionSort(sortArea),
             };
 
             for (SortingAlgorithm algorithm : algorithms) {
