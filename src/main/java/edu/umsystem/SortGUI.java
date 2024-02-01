@@ -58,6 +58,8 @@ public class SortGUI {
                 new BubbleSort(sortArea),
                 new SelectionSort(sortArea),
                 new ShellSort(sortArea),
+                new InsertionSort(sortArea),
+                new RecursiveMergeSort(sortArea),
             };
 
             for (SortingAlgorithm algorithm : algorithms) {
