@@ -85,7 +85,7 @@ public class SortShow extends JPanel {
             g.setColor(Color.getHSBColor((float) lines_lengths[i] / total_number_of_lines,1,1));
 
             //Drawing the lines using the x and y-components
-            g.drawLine(4 * i + 25, 300, 4 * i + 25, 300 - lines_lengths[i]);
+            g.fillRect(4 * i + 25, 300 - lines_lengths[i], 4, lines_lengths[i]);
         }
     }
 
