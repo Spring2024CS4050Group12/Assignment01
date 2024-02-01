@@ -7,7 +7,6 @@ package edu.umsystem;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Calendar;
 import java.util.Random;
 
 //The class that has all the sorts in it
@@ -65,34 +64,6 @@ public class SortShow extends JPanel {
 
     ///////////////////////////////////////////////////////////////////////////////////
 
-    //recursive merge sort method
-    public void R_MergeSort() {
-    }
-
-    //recursive merge sort method
-    public void R_MergeSort(int first, int last) {
-        if (first < last) {
-
-            //You need to complete this part.
-
-            //Causing a delay for 10ms
-            delay(10);
-        }
-    }
-
-    //recursive merge sort method
-    public void R_Merge(int first, int mid, int last) {
-
-        //You need to complete this part.
-
-    }
-
-    //////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-    //////////////////////////////////////////////////////////////////////
-
     //This method resets the window to the scrambled lines display
     public void reset() {
         if (scramble_lines != null) {
@@ -109,22 +80,9 @@ public class SortShow extends JPanel {
         super.paintComponent(g);
         //A loop to assign a colour to each line
         for (int i = 0; i < total_number_of_lines; i++) {
-            //using eight colours for the lines
-            if (i % 8 == 0) {
-                g.setColor(Color.green);
-            } else if (i % 8 == 1) {
-                g.setColor(Color.blue);
-            } else if (i % 8 == 2) {
-                g.setColor(Color.yellow);
-            } else if (i % 8 == 3) {
-                g.setColor(Color.red);
-            } else if (i % 8 == 4) {
-                g.setColor(Color.black);
-            } else if (i % 8 == 5) {
-                g.setColor(Color.orange);
-            } else if (i % 8 == 6) {
-                g.setColor(Color.magenta);
-            } else g.setColor(Color.gray);
+
+            //Set color hue according to height
+            g.setColor(Color.getHSBColor((float) lines_lengths[i] / total_number_of_lines,1,1));
 
             //Drawing the lines using the x and y-components
             g.drawLine(4 * i + 25, 300, 4 * i + 25, 300 - lines_lengths[i]);
