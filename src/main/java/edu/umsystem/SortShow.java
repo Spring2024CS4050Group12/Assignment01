@@ -60,10 +60,17 @@ public class SortShow extends JPanel {
         paintImmediately(getBounds());
     }
 
+    //Assign method that includes paint
     public void assign(int i, int value) {
         lines_lengths[i] = value;
 
         paintImmediately(getBounds());
+    }
+
+    //Compare method that includes paint for delay
+    public int compare(int index1, int index2) {
+        paintImmediately(getBounds());
+        return lines_lengths[index1] - lines_lengths[index2];
     }
 
     public Boolean checkLessThan(int i, int j) {

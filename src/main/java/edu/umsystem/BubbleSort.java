@@ -14,12 +14,16 @@ public class BubbleSort implements SortingAlgorithm {
 
     @Override
     public void sort() {
-        for (int i = 0; i < arrayDisplay.total_number_of_lines; i++) {
+        int swapC = 0, compC = 0;
+        for (int i = 0; i < arrayDisplay.total_number_of_lines - 1; i++) {
             for (int j = 0; j < arrayDisplay.total_number_of_lines - i - 1; j++) {
-                if (arrayDisplay.lines_lengths[j] > arrayDisplay.lines_lengths[j + 1]) {
+                compC++;
+                if (arrayDisplay.compare(j, j + 1) > 0) {
+                    swapC++;
                     arrayDisplay.swap(j, j + 1);
                 }
             }
         }
+        System.out.println("Bubble Sort used " + swapC + " swaps and " + compC + " compares");
     }
 }
