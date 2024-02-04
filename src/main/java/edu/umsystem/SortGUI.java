@@ -41,7 +41,6 @@ public class SortGUI {
     public class MyScreen extends JFrame {
         //making a scramble button with a text "Scramble Lines" on it
         JButton scramble_button = new JButton("Scramble Lines");
-        JButton reset = new JButton("Reset");
 
         ArrayList<AlgorithmDemo> demos = new ArrayList<>();
         int unRunDemos = 0;
@@ -84,9 +83,6 @@ public class SortGUI {
                 statisticsPanel.add(demo.getTimeValue());
             }
 
-            reset.setEnabled(false);
-            algorithmChecklist.add(reset);
-
             JPanel buttons_area_Panel = new JPanel(new GridBagLayout());
             buttons_area_Panel.add(scramble_button, makeConstraint(0, 0, 1.0, 0.5));
             buttons_area_Panel.add(algorithmChecklist, makeConstraint(0, 1, 1.0, 0.75));
@@ -100,25 +96,15 @@ public class SortGUI {
             add(sortArea, BorderLayout.CENTER);
 
             scramble_button.addActionListener(e -> {
-                sortArea.scramble_the_lines();
+                if (scramble_button.getText().equals("Reset")) {
+                    sortArea.reset();
+                    this.unlockOptions();
+                } else {
+                    sortArea.scramble_the_lines();
+                    this.resetOptions();
+                }
 
-                // disable until all demos have been run
                 scramble_button.setEnabled(false);
-
-                // reset the demos (in case this isn't our first run)
-                for (AlgorithmDemo demo : this.demos) demo.reset();
-                unRunDemos = demos.size();
-            });
-
-            reset.addActionListener(e -> {
-                // reset to the ordering set by the last scramble
-                sortArea.reset();
-
-                // disable until a demo has been run (if there are remaining demos)
-                reset.setEnabled(false);
-
-                // unlock the demos that haven't been run yet
-                this.unlockOptions();
             });
         }
 
@@ -139,15 +125,18 @@ public class SortGUI {
             for (AlgorithmDemo demo : this.demos) {
                 demo.setEnabled(false);
             }
-
-            reset.setEnabled(false);
         }
 
         // the array is shuffled, unlock all unused demos or the reset button if all are used (otherwise disable it)
         public void unlockOptions() {
-            for (AlgorithmDemo demo : this.demos) {
+            for (AlgorithmDemo demo : this.demos)
                 demo.setEnabled(!demo.getUsedStatus());
-            }
+        }
+
+        public void resetOptions() {
+            for (AlgorithmDemo demo : this.demos) demo.reset();
+
+            unRunDemos = demos.size();
         }
 
         public void runDemo(AlgorithmDemo demo) {
@@ -158,8 +147,8 @@ public class SortGUI {
             demo.sort();
             unRunDemos -= 1;
 
-            this.reset.setEnabled(unRunDemos > 0);
-            this.scramble_button.setEnabled(unRunDemos == 0);
+            this.scramble_button.setText((unRunDemos > 0)? "Reset" : "Scramble");
+            this.scramble_button.setEnabled(true);
         }
     }
 }
