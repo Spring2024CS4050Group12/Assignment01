@@ -25,15 +25,11 @@ public class InsertionSort implements SortingAlgorithm {
 
         int index = end;
         while (index >= begin && element < a[index]) {
-            a[index + 1] = a[index]; // make room
+            arrayDisplay.assign(index + 1, a[index]); // make room
             index--;
-
-            arrayDisplay.paintComponent(arrayDisplay.getGraphics());
         }
 
         // Assertion: a[index + 1] is available
-        a[index + 1] = element;
-
-        arrayDisplay.paintComponent(arrayDisplay.getGraphics());
+        arrayDisplay.assign(index + 1, element);
     }
 }

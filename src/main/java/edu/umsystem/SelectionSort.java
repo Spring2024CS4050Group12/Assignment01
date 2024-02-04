@@ -21,7 +21,6 @@ public class SelectionSort implements SortingAlgorithm {
                     mindex = i;
 
             arrayDisplay.swap(sortedLength, mindex);
-            arrayDisplay.paintComponent(arrayDisplay.getGraphics());
         }
     }
 }
