@@ -22,7 +22,7 @@ public class SortGUI {
 
         MyScreen screen = new MyScreen();
         //Setting a title to the GUI window
-        screen.setTitle("Assignment-1 by Abdelnasser Ouda");
+        screen.setTitle("Assignment-1 by Harrison, Christian, and Evan");
         //setting the size of the window
         screen.setSize(975 + sortArea.total_number_of_lines, 600);
         //the operation when the frame is closed
