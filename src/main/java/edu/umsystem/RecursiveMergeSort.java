@@ -65,8 +65,7 @@ public class RecursiveMergeSort implements SortingAlgorithm {
 
         // Copy values back from the temp array and paint as you go
         for (int i = first; i <= last; i++) {
-            a[i] = temp[i];
-            arrayDisplay.paintComponent(arrayDisplay.getGraphics());
+            arrayDisplay.assign(i, temp[i]);
         }
     }
 

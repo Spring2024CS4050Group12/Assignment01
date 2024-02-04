@@ -56,6 +56,14 @@ public class SortShow extends JPanel {
         lines_lengths[i] = lines_lengths[j];
         //giving j element in lines_lengths the value of temp
         lines_lengths[j] = temp;
+
+        paintImmediately(getBounds());
+    }
+
+    public void assign(int i, int value) {
+        lines_lengths[i] = value;
+
+        paintImmediately(getBounds());
     }
 
     public Boolean checkLessThan(int i, int j) {
@@ -86,15 +94,6 @@ public class SortShow extends JPanel {
 
             //Drawing the lines using the x and y-components
             g.fillRect(4 * i + 25, 300 - lines_lengths[i], 4, lines_lengths[i]);
-        }
-    }
-
-    //A delay method that pauses the execution for the milliseconds time given as a parameter
-    public void delay(int time) {
-        try {
-            Thread.sleep(time);
-        } catch (InterruptedException ie) {
-            Thread.currentThread().interrupt();
         }
     }
 }
