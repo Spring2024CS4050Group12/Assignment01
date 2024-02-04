@@ -22,7 +22,7 @@ public class SortGUI {
 
         MyScreen screen = new MyScreen();
         //Setting a title to the GUI window
-        screen.setTitle("Assignment-1 by Abdelnasser Ouda");
+        screen.setTitle("Assignment-1 by Harrison, Christian, and Evan");
         //setting the size of the window
         screen.setSize(975 + sortArea.total_number_of_lines, 600);
         //the operation when the frame is closed
@@ -34,7 +34,7 @@ public class SortGUI {
     //The main method
     public static void main(String[] args) {
         //initialize the class
-        SortGUI sort_GUI = new SortGUI();
+        new SortGUI();
     }
 
     //A public class that extends JFrame
@@ -65,7 +65,7 @@ public class SortGUI {
 
             for (SortingAlgorithm algorithm : algorithms) {
                 AlgorithmDemo demo = new AlgorithmDemo(algorithm);
-                demo.addStartButtonListener(e -> { this.runDemo(demo); });
+                demo.addStartButtonListener(e -> this.runDemo(demo));
                 demos.add(demo);
                 demo.setEnabled(false);
             }
