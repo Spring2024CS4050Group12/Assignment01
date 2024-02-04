@@ -57,6 +57,8 @@ public class AlgorithmDemo {
 
     public void reset() {
         this.startButton.setEnabled(true);
+        this.usedStatus = false;
+        this.startButton.setSelected(false);
         this.timeValue.setText("");
     }
 }

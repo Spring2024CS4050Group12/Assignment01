@@ -44,6 +44,7 @@ public class SortGUI {
         JButton reset = new JButton("Reset");
 
         ArrayList<AlgorithmDemo> demos = new ArrayList<>();
+        int unRunDemos = 0;
 
         //the default constructor for the class MyScreen
         public MyScreen() {
@@ -67,9 +68,8 @@ public class SortGUI {
                 AlgorithmDemo demo = new AlgorithmDemo(algorithm);
                 demo.addStartButtonListener(e -> { this.runDemo(demo); });
                 demos.add(demo);
+                demo.setEnabled(false);
             }
-
-            this.lockOptions();
 
             // Panel listing the available sorting algorithm demos
             JPanel algorithmChecklist = new JPanel(new GridLayout(0, 1, 3, 3));
@@ -84,6 +84,7 @@ public class SortGUI {
                 statisticsPanel.add(demo.getTimeValue());
             }
 
+            reset.setEnabled(false);
             algorithmChecklist.add(reset);
 
             JPanel buttons_area_Panel = new JPanel(new GridBagLayout());
@@ -101,15 +102,23 @@ public class SortGUI {
             scramble_button.addActionListener(e -> {
                 sortArea.scramble_the_lines();
 
-                //this same scrambled lines will be used for all threes sort methods used in this program
+                // disable until all demos have been run
                 scramble_button.setEnabled(false);
 
-                this.unlockOptions();
+                // reset the demos (in case this isn't our first run)
+                for (AlgorithmDemo demo : this.demos) demo.reset();
+                unRunDemos = demos.size();
             });
 
             reset.addActionListener(e -> {
-                this.unlockOptions();
+                // reset to the ordering set by the last scramble
                 sortArea.reset();
+
+                // disable until a demo has been run (if there are remaining demos)
+                reset.setEnabled(false);
+
+                // unlock the demos that haven't been run yet
+                this.unlockOptions();
             });
         }
 
@@ -136,13 +145,9 @@ public class SortGUI {
 
         // the array is shuffled, unlock all unused demos or the reset button if all are used (otherwise disable it)
         public void unlockOptions() {
-            Boolean allUsed = true;
             for (AlgorithmDemo demo : this.demos) {
-                allUsed &= demo.getUsedStatus();
                 demo.setEnabled(!demo.getUsedStatus());
             }
-
-            reset.setEnabled(allUsed);
         }
 
         public void runDemo(AlgorithmDemo demo) {
@@ -151,9 +156,10 @@ public class SortGUI {
             //  it's probably better not to rely on that fact
             this.lockOptions();
             demo.sort();
+            unRunDemos -= 1;
 
-            // always allow for a reset (re-shuffle) after sorting completes
-            this.reset.setEnabled(true);
+            this.reset.setEnabled(unRunDemos > 0);
+            this.scramble_button.setEnabled(unRunDemos == 0);
         }
     }
 }
