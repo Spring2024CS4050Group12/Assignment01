@@ -28,7 +28,6 @@ public class ShellSort implements SortingAlgorithm {
         while (gap > 0) {
             for (int i = 0; i < gap; ++i) {
                 insertionSort(i, this.arrayDisplay.total_number_of_lines, gap);
-                this.arrayDisplay.paintComponent(this.arrayDisplay.getGraphics());
             }
             gap /= 2;
         }

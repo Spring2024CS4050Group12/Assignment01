@@ -55,9 +55,6 @@ public class IterativeMergeSort implements SortingAlgorithm {
 
             beginSegment1 = endSegment2 + 1;
             //redrawing the lines_lengths
-            this.arrayDisplay.paintComponent(this.arrayDisplay.getGraphics());
-            //Causing a delay for 10ms
-            this.arrayDisplay.delay(10);
         }
         // Returns index of last merged pair
         return beginSegment1;
@@ -85,8 +82,6 @@ public class IterativeMergeSort implements SortingAlgorithm {
                 beginHalf2++;
             }
         }
-        //redrawing the lines_lengths
-        this.arrayDisplay.paintComponent(this.arrayDisplay.getGraphics());
 
         // Finish off the nonempty sub-array
 
@@ -102,6 +97,6 @@ public class IterativeMergeSort implements SortingAlgorithm {
 
         // Copy the result back into the original array
         for (index = first; index <= last; index++)
-            this.arrayDisplay.lines_lengths[index] = this.tempArray[index];
+            this.arrayDisplay.assign(index, this.tempArray[index]);
     }
 }
