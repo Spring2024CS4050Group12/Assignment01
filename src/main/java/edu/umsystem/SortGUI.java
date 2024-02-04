@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 //the class with button and main method
 public class SortGUI {
-    //Making a object from the class SortShow
+    //Making an object from the class SortShow
     SortShow sortArea = new SortShow();
 
     //Default constructor for SortGUI
@@ -47,7 +47,7 @@ public class SortGUI {
 
         //the default constructor for the class MyScreen
         public MyScreen() {
-            // Panel where sorted lines_lengths will displayed
+            // Panel where sorted lines_lengths will be displayed
             //The scramble button's text will be blue
             scramble_button.setForeground(Color.BLUE);
             //setting the font of scramble button
@@ -60,6 +60,7 @@ public class SortGUI {
                 new ShellSort(sortArea),
                 new InsertionSort(sortArea),
                 new RecursiveMergeSort(sortArea),
+                new RecursiveQuickSort(sortArea)
             };
 
             for (SortingAlgorithm algorithm : algorithms) {
@@ -146,7 +147,7 @@ public class SortGUI {
 
         public void runDemo(AlgorithmDemo demo) {
             // disable interface while a demo is running
-            // Note: with the current implementation sort() is blocking and this doesn't seem to have any effect but
+            // Note: with the current implementation sort() is blocking and this doesn't seem to have any effect, but
             //  it's probably better not to rely on that fact
             this.lockOptions();
             demo.sort();
