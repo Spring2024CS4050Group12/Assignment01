@@ -74,10 +74,13 @@ public class IterativeMergeSort implements SortingAlgorithm {
         int index = beginHalf1; // Next available location in tempArray
         for (; (beginHalf1 <= endHalf1) && (beginHalf2 <= endHalf2); index++) {
             // Invariant: tempArray[beginHalf1..index-1] is in order
+            arrayDisplay.delay();
             if (this.arrayDisplay.lines_lengths[beginHalf1] < this.arrayDisplay.lines_lengths[beginHalf2]) {
+                arrayDisplay.delay();
                 this.tempArray[index] = this.arrayDisplay.lines_lengths[beginHalf1];
                 beginHalf1++;
             } else {
+                arrayDisplay.delay();
                 this.tempArray[index] = this.arrayDisplay.lines_lengths[beginHalf2];
                 beginHalf2++;
             }
@@ -86,17 +89,25 @@ public class IterativeMergeSort implements SortingAlgorithm {
         // Finish off the nonempty sub-array
 
         // Finish off the first sub-array, if necessary
-        for (; beginHalf1 <= endHalf1; beginHalf1++, index++)
-            // Invariant: tempArray[beginHalf1..index-1] is in order
-            this.tempArray[index] = this.arrayDisplay.lines_lengths[beginHalf1];
+        for (; beginHalf1 <= endHalf1; beginHalf1++, index++) {
+            arrayDisplay.delay();
+        // Invariant: tempArray[beginHalf1..index-1] is in order
+        arrayDisplay.delay();
+        this.tempArray[index] = this.arrayDisplay.lines_lengths[beginHalf1];
+        }
 
         // Finish off the second sub-array, if necessary
-        for (; beginHalf2 <= endHalf2; beginHalf2++, index++)
+        for (; beginHalf2 <= endHalf2; beginHalf2++, index++) {
+            arrayDisplay.delay();
             // Invariant: tempa[beginHalf1..index-1] is in order
+            arrayDisplay.delay();
             this.tempArray[index] = this.arrayDisplay.lines_lengths[beginHalf2];
-
+        }
         // Copy the result back into the original array
-        for (index = first; index <= last; index++)
+        for (index = first; index <= last; index++) {
+            arrayDisplay.delay();
+            arrayDisplay.delay();
             this.arrayDisplay.assign(index, this.tempArray[index]);
+        }
     }
 }

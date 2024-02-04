@@ -15,9 +15,9 @@ public class SelectionSort implements SortingAlgorithm {
     @Override
     public void sort() {
         int swapC = 0, compC = 0;
-        for (int sortedLength = 0; sortedLength < arrayDisplay.total_number_of_lines; ++sortedLength) {
+        for (int sortedLength = 0; sortedLength < arrayDisplay.total_number_of_lines - 1; ++sortedLength) {
             int mindex = sortedLength;
-            for (int i = sortedLength; i < arrayDisplay.total_number_of_lines; ++i) {
+            for (int i = sortedLength + 1; i < arrayDisplay.total_number_of_lines; ++i) {
                 compC++;
                 if (arrayDisplay.compare(i, mindex) < 0)
                     mindex = i;

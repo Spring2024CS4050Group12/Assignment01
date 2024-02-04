@@ -73,6 +73,17 @@ public class SortShow extends JPanel {
         return lines_lengths[index1] - lines_lengths[index2];
     }
 
+    //Compare method that includes paint for delay
+    public int compareToVal(int value, int index) {
+        paintImmediately(getBounds());
+        return value - lines_lengths[index];
+    }
+
+    //Just draws to delay
+    public void delay() {
+        paintImmediately(getBounds());
+    }
+
     public Boolean checkLessThan(int i, int j) {
         return lines_lengths[i] < lines_lengths[j];
     }

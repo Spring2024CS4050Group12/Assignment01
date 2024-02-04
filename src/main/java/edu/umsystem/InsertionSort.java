@@ -24,7 +24,8 @@ public class InsertionSort implements SortingAlgorithm {
         // Inserts elements into the sorted array elements a[begin] through a[end]
 
         int index = end;
-        while (index >= begin && element < a[index]) {
+        // compare at end is to add delay to normalize times, repres
+        while (index >= begin && arrayDisplay.compareToVal(element,index) < 0) {
             arrayDisplay.assign(index + 1, a[index]); // make room
             index--;
         }
