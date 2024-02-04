@@ -43,20 +43,12 @@ public class RecursiveQuickSort implements SortingAlgorithm {
                 --right;
 
             if (left < right) {
-                swap(a, left, right);
-                arrayDisplay.paintComponent(arrayDisplay.getGraphics());
+                arrayDisplay.swap(left, right);
             }
         }
 
         // Place pivot in it's sorted position
-        swap(a, left, last);
-        arrayDisplay.paintComponent(arrayDisplay.getGraphics());
+        arrayDisplay.swap(left, last);
         return left;
-    }
-
-    private void swap(int[] a, int i, int j) {
-        int temp = a[i];
-        a[i] = a[j];
-        a[j] = temp;
     }
 }
