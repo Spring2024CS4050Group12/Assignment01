@@ -14,9 +14,14 @@ public class SortShow extends JPanel {
     //The amount of lines needed
     public final int total_number_of_lines = 256;
     // An array to hold the lines_lengths to be sorted
-    public int[] lines_lengths;
+    private int[] lines_lengths;
     // An array to holds the scrambled lines_lengths
-    public int[] scramble_lines;
+    private int[] scramble_lines;
+
+    private int swaps = 0;
+    private int assignments = 0;
+    private int comparisons = 0;
+    private int accesses = 0;
 
     //the default constructor for the SortShow class
     public SortShow() {
@@ -50,6 +55,8 @@ public class SortShow extends JPanel {
 
     //Swapping method that swaps two elements in the lines_lengths array
     public void swap(int i, int j) {
+        swaps += 1;
+
         //storing the i element in lines_lengths in temp
         int temp = lines_lengths[i];
         //giving i element in lines_lengths the value of j element in lines_lengths
@@ -60,14 +67,40 @@ public class SortShow extends JPanel {
         paintImmediately(getBounds());
     }
 
+    public int at(int i) {
+        accesses += 1;
+
+        return lines_lengths[i];
+    }
+
     public void assign(int i, int value) {
+        assignments += 1;
+
         lines_lengths[i] = value;
 
         paintImmediately(getBounds());
     }
 
-    public Boolean checkLessThan(int i, int j) {
-        return lines_lengths[i] < lines_lengths[j];
+    public Boolean checkLessThan(int height_a, int height_b) {
+        comparisons += 1;
+
+        return height_a < height_b;
+    }
+
+    public int getSwaps() {
+        return swaps;
+    }
+
+    public int getAssignments() {
+        return assignments;
+    }
+
+    public int getComparisons() {
+        return comparisons;
+    }
+
+    public int getAccesses() {
+        return accesses;
     }
 
     ///////////////////////////////////////////////////////////////////////////////////
@@ -80,6 +113,11 @@ public class SortShow extends JPanel {
             //Drawing the now scrambled lines_lengths
             paintComponent(this.getGraphics());
         }
+
+        swaps = 0;
+        assignments = 0;
+        comparisons = 0;
+        accesses = 0;
     }
 
     //This method colours the lines and prints the lines

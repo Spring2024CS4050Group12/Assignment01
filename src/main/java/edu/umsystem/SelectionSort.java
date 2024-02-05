@@ -13,11 +13,16 @@ public class SelectionSort implements SortingAlgorithm {
     }
 
     @Override
+    public SortShow getArrayDisplay() {
+        return this.arrayDisplay;
+    }
+
+    @Override
     public void sort() {
         for (int sortedLength = 0; sortedLength < arrayDisplay.total_number_of_lines; ++sortedLength) {
             int mindex = sortedLength;
             for (int i = sortedLength; i < arrayDisplay.total_number_of_lines; ++i)
-                if (arrayDisplay.lines_lengths[i] < arrayDisplay.lines_lengths[mindex])
+                if (arrayDisplay.checkLessThan(arrayDisplay.at(i), arrayDisplay.at(mindex)))
                     mindex = i;
 
             arrayDisplay.swap(sortedLength, mindex);

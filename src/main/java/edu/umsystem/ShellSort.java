@@ -12,11 +12,16 @@ public class ShellSort implements SortingAlgorithm {
         return "Shell Sort";
     }
 
+    @Override
+    public SortShow getArrayDisplay() {
+        return this.arrayDisplay;
+    }
+
     private void insertionSort(int start, int stop, int step) {
         for (int sortedTo = start + step; sortedTo < stop; sortedTo += step)
             for (
                     int insertPosition = sortedTo;
-                    insertPosition > start && this.arrayDisplay.checkLessThan(insertPosition, insertPosition - step);
+                    insertPosition > start && this.arrayDisplay.checkLessThan(this.arrayDisplay.at(insertPosition), this.arrayDisplay.at(insertPosition - step));
                     insertPosition -= step
             ) this.arrayDisplay.swap(insertPosition, insertPosition - step);
     }

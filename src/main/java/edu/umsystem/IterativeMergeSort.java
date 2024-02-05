@@ -15,6 +15,11 @@ public class IterativeMergeSort implements SortingAlgorithm {
         return "Iterative Merge Sort";
     }
 
+    @Override
+    public SortShow getArrayDisplay() {
+        return this.arrayDisplay;
+    }
+
     //iterative merge sort method
     @Override
     public void sort() {
@@ -74,11 +79,11 @@ public class IterativeMergeSort implements SortingAlgorithm {
         int index = beginHalf1; // Next available location in tempArray
         for (; (beginHalf1 <= endHalf1) && (beginHalf2 <= endHalf2); index++) {
             // Invariant: tempArray[beginHalf1..index-1] is in order
-            if (this.arrayDisplay.lines_lengths[beginHalf1] < this.arrayDisplay.lines_lengths[beginHalf2]) {
-                this.tempArray[index] = this.arrayDisplay.lines_lengths[beginHalf1];
+            if (this.arrayDisplay.checkLessThan(this.arrayDisplay.at(beginHalf1), this.arrayDisplay.at(beginHalf2))) {
+                this.tempArray[index] = this.arrayDisplay.at(beginHalf1);
                 beginHalf1++;
             } else {
-                this.tempArray[index] = this.arrayDisplay.lines_lengths[beginHalf2];
+                this.tempArray[index] = this.arrayDisplay.at(beginHalf2);
                 beginHalf2++;
             }
         }
@@ -88,12 +93,12 @@ public class IterativeMergeSort implements SortingAlgorithm {
         // Finish off the first sub-array, if necessary
         for (; beginHalf1 <= endHalf1; beginHalf1++, index++)
             // Invariant: tempArray[beginHalf1..index-1] is in order
-            this.tempArray[index] = this.arrayDisplay.lines_lengths[beginHalf1];
+            this.tempArray[index] = this.arrayDisplay.at(beginHalf1);
 
         // Finish off the second sub-array, if necessary
         for (; beginHalf2 <= endHalf2; beginHalf2++, index++)
             // Invariant: tempa[beginHalf1..index-1] is in order
-            this.tempArray[index] = this.arrayDisplay.lines_lengths[beginHalf2];
+            this.tempArray[index] = this.arrayDisplay.at(beginHalf2);
 
         // Copy the result back into the original array
         for (index = first; index <= last; index++)

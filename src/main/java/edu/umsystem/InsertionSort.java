@@ -13,19 +13,24 @@ public class InsertionSort implements SortingAlgorithm {
     }
 
     @Override
+    public SortShow getArrayDisplay() {
+        return this.arrayDisplay;
+    }
+
+    @Override
     public void sort() {
         for (int unsortedIndex = 1; unsortedIndex < arrayDisplay.total_number_of_lines; ++unsortedIndex) {
-            int firstUnsortedElement = arrayDisplay.lines_lengths[unsortedIndex];
-            insertInOrder(firstUnsortedElement, arrayDisplay.lines_lengths, 0, unsortedIndex - 1);
+            int firstUnsortedElement = arrayDisplay.at(unsortedIndex);
+            insertInOrder(firstUnsortedElement, 0, unsortedIndex - 1);
         }
     }
 
-    public void insertInOrder(int element, int[] a, int begin, int end) {
+    public void insertInOrder(int element, int begin, int end) {
         // Inserts elements into the sorted array elements a[begin] through a[end]
 
         int index = end;
-        while (index >= begin && element < a[index]) {
-            arrayDisplay.assign(index + 1, a[index]); // make room
+        while (index >= begin && arrayDisplay.checkLessThan(element, arrayDisplay.at(index))) {
+            arrayDisplay.assign(index + 1, arrayDisplay.at(index)); // make room
             index--;
         }
 

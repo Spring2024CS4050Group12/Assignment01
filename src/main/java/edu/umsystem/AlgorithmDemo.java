@@ -50,7 +50,16 @@ public class AlgorithmDemo {
         this.algorithm.sort();
         long end = Calendar.getInstance().getTime().getTime();
 
-        this.timeValue.setText(String.format("%f Seconds", (end - start) / 1000.f));
+        SortShow arrayDisplay = this.algorithm.getArrayDisplay();
+
+        this.timeValue.setText(String.format(
+                "%f s, %d cmp, %d swp, %d A[], %d A[]=",
+                (end - start) / 1000.f,
+                arrayDisplay.getComparisons(),
+                arrayDisplay.getSwaps(),
+                arrayDisplay.getAccesses(),
+                arrayDisplay.getAssignments()
+        ));
 
         usedStatus = true;
     }
