@@ -34,15 +34,23 @@ public class RecursiveQuickSort implements SortingAlgorithm {
         int pivot = a[last];
 
         while (left <= right) {
+            arrayDisplay.delay();
             // If a[left] <= pivot, everything to the left of `left` is sorted
-            while (left <= right && a[left] <= pivot)
+            while (left <= right && a[left] <= pivot) {
+                arrayDisplay.delay();
+                arrayDisplay.delay();
                 ++left;
+            }
 
             // If a[right] >= pivot, everything to the right of `right` is sorted
-            while (left <= right && a[right] >= pivot)
+            while (left <= right && a[right] >= pivot) {
+                arrayDisplay.delay();
+                arrayDisplay.delay();
                 --right;
+            }
 
             if (left < right) {
+                arrayDisplay.delay();
                 arrayDisplay.swap(left, right);
             }
         }
