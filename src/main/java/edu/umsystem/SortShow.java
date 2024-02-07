@@ -17,6 +17,10 @@ public class SortShow extends JPanel {
     public int[] lines_lengths;
     // An array to holds the scrambled lines_lengths
     public int[] scramble_lines;
+    // Track how many draw attempts have occurred
+    private int drawTimeBuffer = 0;
+    // How often a draw will actually happen
+    private static final int DRAW_CHANCE = 25;
 
     //the default constructor for the SortShow class
     public SortShow() {
@@ -48,6 +52,21 @@ public class SortShow extends JPanel {
         paintComponent(this.getGraphics());
     }
 
+    // Attempt a draw
+    public void attemptDraw() {
+        drawTimeBuffer++;
+        // Only allow draw every DRAW_CHANCE times
+        if (drawTimeBuffer > DRAW_CHANCE) {
+            paintImmediately(getBounds());
+            drawTimeBuffer = 0;
+        }
+    }
+
+    // Draw no matter buffer
+    public void sureDraw() {
+            paintImmediately(getBounds());
+    }
+
     //Swapping method that swaps two elements in the lines_lengths array
     public void swap(int i, int j) {
         //storing the i element in lines_lengths in temp
@@ -57,13 +76,20 @@ public class SortShow extends JPanel {
         //giving j element in lines_lengths the value of temp
         lines_lengths[j] = temp;
 
-        paintImmediately(getBounds());
+        attemptDraw();
     }
 
+    // Assign method that includes paint
     public void assign(int i, int value) {
         lines_lengths[i] = value;
 
-        paintImmediately(getBounds());
+        attemptDraw();
+    }
+
+    // Just attempts draws to delay
+    // Good for compares that otherwise have no delay
+    public void delay() {
+        attemptDraw();
     }
 
     public Boolean checkLessThan(int i, int j) {

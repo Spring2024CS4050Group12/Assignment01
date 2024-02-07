@@ -22,6 +22,7 @@ public class RecursiveMergeSort implements SortingAlgorithm {
     public void mergeSort(int[] a, int[] temp, int first, int last) {
         // As long as bounds are valid
         if (first < last) {
+            arrayDisplay.delay();
             // Split at the middle
             int mid = (first + last) / 2;
             // Recursively continue mergeSort on new bounds
@@ -40,12 +41,15 @@ public class RecursiveMergeSort implements SortingAlgorithm {
 
         // Loop while bounds are valid
         while ((firstHalfI <= mid) && (secondHalfI <= last)) {
+            arrayDisplay.delay();
             if (a[firstHalfI] < a[secondHalfI]) {
                 // If first half smaller copy into temp
+                arrayDisplay.delay();
                 temp[tempI] = a[firstHalfI];
                 firstHalfI++;
             } else {
                 // Else copy in second half element
+                arrayDisplay.delay();
                 temp[tempI] = a[secondHalfI];
                 secondHalfI++;
             }
@@ -55,10 +59,14 @@ public class RecursiveMergeSort implements SortingAlgorithm {
 
         // Copy over any remaining values in array
         for (int i = firstHalfI; i <= mid; i++) {
+            arrayDisplay.delay();
+            arrayDisplay.delay();
             temp[tempI] = a[i];
             tempI++;
         }
         for (int i = secondHalfI; i <= last; i++) {
+            arrayDisplay.delay();
+            arrayDisplay.delay();
             temp[tempI] = a[i];
             tempI++;
         }

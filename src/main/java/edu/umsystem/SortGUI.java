@@ -145,6 +145,7 @@ public class SortGUI {
             //  it's probably better not to rely on that fact
             this.lockOptions();
             demo.sort();
+            sortArea.sureDraw();
             unRunDemos -= 1;
 
             this.scramble_button.setText((unRunDemos > 0)? "Reset" : "Scramble");
