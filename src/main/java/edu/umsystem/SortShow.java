@@ -17,6 +17,7 @@ public class SortShow extends JPanel {
     public int[] lines_lengths;
     // An array to holds the scrambled lines_lengths
     public int[] scramble_lines;
+    private int drawTimeBuffer = 0;
 
     //the default constructor for the SortShow class
     public SortShow() {
@@ -48,6 +49,18 @@ public class SortShow extends JPanel {
         paintComponent(this.getGraphics());
     }
 
+    public void attemptDraw() {
+        drawTimeBuffer++;
+        if (drawTimeBuffer > 5) {
+            paintImmediately(getBounds());
+            drawTimeBuffer = 0;
+        }
+    }
+
+    public void sureDraw() {
+            paintImmediately(getBounds());
+    }
+
     //Swapping method that swaps two elements in the lines_lengths array
     public void swap(int i, int j) {
         //storing the i element in lines_lengths in temp
@@ -57,31 +70,31 @@ public class SortShow extends JPanel {
         //giving j element in lines_lengths the value of temp
         lines_lengths[j] = temp;
 
-        paintImmediately(getBounds());
+        attemptDraw();
     }
 
     //Assign method that includes paint
     public void assign(int i, int value) {
         lines_lengths[i] = value;
 
-        paintImmediately(getBounds());
+        attemptDraw();
     }
 
     //Compare method that includes paint for delay
     public int compare(int index1, int index2) {
-        paintImmediately(getBounds());
+//        attemptDraw();
         return lines_lengths[index1] - lines_lengths[index2];
     }
 
     //Compare method that includes paint for delay
     public int compareToVal(int value, int index) {
-        paintImmediately(getBounds());
+//        attemptDraw();
         return value - lines_lengths[index];
     }
 
     //Just draws to delay
     public void delay() {
-        paintImmediately(getBounds());
+//        attemptDraw();
     }
 
     public Boolean checkLessThan(int i, int j) {
